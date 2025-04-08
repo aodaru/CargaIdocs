@@ -1,0 +1,9 @@
+@echo off
+set server=172.17.32.64
+set mand=300
+set usr=soporte
+set pwd=fJurado507/
+set directorio=C:\InterfaceODOO\ENTRADA
+set logPath=%directorio%\logs
+set today=%date:~10,4%%date:~4,2%%date:~7,2%
+set logFile=%logPath%\%today%.log

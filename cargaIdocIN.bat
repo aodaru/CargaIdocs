@@ -3,20 +3,13 @@
 REM Startrfc -h ipERP -s 00 -u usuario -p contrasena -c nmandante
 REM -F EDI_DATA_INCOMING -E PATHNAME=c:\InterfaceODOO\ENTRADA\WPUBON_0489.txt 
 REM puerta: -E PORT=IDOC -t
-REM frecuentcia 3 min
+REM frecuentcia 5 min
 REM Formato de fecha para el servidor de ERQ 
 REM %date:~7,2% -- dia
 REM %date:~10,4% -- año
 REM %date:~4,2% -- mes%
 
-set server=172.17.32.64
-set mand=300
-set usr=soporte
-set pwd=fJurado507/
-set directorio=C:\InterfaceODOO\ENTRADA
-set logPath=%directorio%\logs
-set today=%date:~10,4%%date:~4,2%%date:~7,2%
-set logFile=%logPath%\%today%.log
+CALL config.bat
 
 dir %directorio%\*.txt > nul
 
