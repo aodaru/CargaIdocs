@@ -1,14 +1,5 @@
 @echo off 
 
-REM Startrfc -h ipERP -s 00 -u usuario -p contrasena -c nmandante
-REM -F EDI_DATA_INCOMING -E PATHNAME=c:\InterfaceODOO\ENTRADA\WPUBON_0489.txt 
-REM puerta: -E PORT=IDOC -t
-REM frecuentcia 5 min
-REM Formato de fecha para el servidor de ERQ 
-REM %date:~7,2% -- dia
-REM %date:~10,4% -- año
-REM %date:~4,2% -- mes%
-
 CALL ./config.bat 
 
 IF NOT EXIST %directorio% mkdir %directorio%
