@@ -11,7 +11,6 @@ REM %date:~4,2% -- mes%
 
 CALL ./config.bat 
 
-echo %directorio%
 IF NOT EXIST %directorio% mkdir %directorio%
 dir %directorio%\*.txt > nul
 
@@ -22,12 +21,29 @@ IF %ERRORLEVEL% == 0 (
   echo [%date:~7,2%/%date:~4,2%/%date:~10,4% - %time:~0,8%] - Inicio >> %logFile% 
 
   for %%f in (%idocType%) do (
-    for /f "tokens=*" %%a in ('dir "%directorio%\%f%*.txt" /b') do (
-      echo procesando archivo %%a >> %logFile%
-      echo startrfc -h %server% -s 00 -u %usr% -p %pwd% -c %mand% -F EDI_DATA_INCOMING -E PATHNAME=%directorio%\%%a -E PORT=IDOC >> %logFile%
+    if NOT %%f == "" (
+      for /f "tokens=*" %%a in ('dir "%directorio%\%%f*.txt" /b') do (
+        if NOT %%a == "" (
+          CALL :checkDuplicate "%%a"
+        )
+      )
     )
   )
 
   echo [%date:~7,2%/%date:~4,2%/%date:~10,4% - %time:~0,8%] - Fin >> %logFile% 
   echo ************************************ >> %logFile% 
 )
+
+:checkDuplicate
+  findstr /C:" %~1" "%logFile%" >nul
+  if %errorlevel% == 0 (
+    if NOT %~1 == " " (
+      echo [%date:~7,2%/%date:~4,2%/%date:~10,4% - %time:~0,8%] - Archivo %~1 ya procesado. >> "%logFile%"
+      move "%directorio%\%~1" "%duplicatePath%\%date:~7,2%%date:~4,2%%date:~10,4%_%time:~0,2%%time:~0,2%%time:~6,2%_%~1"
+    )
+    exit /b 1
+  ) else (
+    echo procesando archivo %~1 >> %logFile%
+    startrfc -h %server% -s 00 -u %usr% -p %pwd% -c %mand% -F EDI_DATA_INCOMING -E PATHNAME=%directorio%\%~1 -E PORT=IDOC >> %logFile%
+    exit /b 0
+  )
