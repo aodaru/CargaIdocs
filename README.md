@@ -1,9 +1,9 @@
 # Job para el consumo de IDOCS ODOO -> SAP
 
 Para realizar esta tarea necesitamos usar el programa startrfc que viene en la instalación de SAP.
-El job busca los archivos de texto que comiencen con el nombre WPUBON y WPUFIB ya que el comando startrfc toma todos los archivos de texto que caigan en la ubicación donde se le indique que tome la data.
+El job busca los archivos de texto que comience con el nombre WPUBON y WPUFIB ya que el comando startrfc toma todos los archivos de texto que caigán en la ubicación donde se le indique que tome la data.
 
-Esto lo controlamos mediante un ciclo for el cual ejecuta un dir en el directorio para que traiga por separado cada grupo de archivos.
+Esto lo manejamos mediante un ciclo for el cual ejecuta un dir en el directorio, para que traiga por separado cada grupo de archivos.
 
 ```batch title:Ciclo_For
 for /f "tokens=*" %%a in ('dir "%directorio%\WPUBON*.txt" /b') do (##CODIGO##)
@@ -42,7 +42,7 @@ set idocType=WPUBON,WPUFIB,WPUTAB,WPUWBW
 
 ### Tarea programada
 
-Se programo el Job para que se ejecute a partir de las 7:30 AM Hasta las 7:30 PM. Se estará ejecutando en intervalos de 5 minutos.
+Se programo el Job para que se ejecuta a partir de las 7:30 AM Hasta las 7:30 PM. Se estará ejecutando en intervalos de 5 minutos.
 
 ![Jobs](./img/ScheduleJob.png)
 
